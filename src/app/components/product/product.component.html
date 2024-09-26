@@ -1,0 +1,84 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-3 mt-3" *ngFor="let product of productItems">
+        <div class="card shadow-lg">
+          <div class="p-1 w-100">
+            <img src={{product.images[0]}} class="object-fit-cover position-relative" alt="..." width="100%" height="250px">
+            <span class="badge position-absolute"  [ngClass]="product.availableQty > 0 ? 'bg-success' : 'bg-danger'"
+            [ngStyle]="{
+              'right': product.availableQty > 0 ? '194px' : '170px',
+              'top': '65px'
+            }">
+        {{ product.availableQty > 0 ? 'In Stock' : 'Out of Stock' }}
+      </span>
+
+          </div>
+          <div class="card-body p-1">
+            <div class="f-size-11 fw-bold">{{product.name}}</div>
+            <div class="f-size-11 badge bg-info">price {{product.price}}$</div>
+            <div class="d-flex mt-1 mb-1">
+              <i class="fa-solid fa-star text-warning" *ngFor="let item of [].constructor(product.rating); let i = index"></i>
+            </div>
+            <!-- <div><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div> -->
+            <div class="f-size-8 mt-1">
+             {{product.description[0]}}
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <button class="btn f-size-11 px-2 py-1 mt-2" [ngClass]="product.availableQty > 0 ? 'btn-primary' : 'btn-secondary'" [disabled]="product.availableQty < 1"  (click)="addToCart(product)">Add to cart</button>
+              <div class="text-primary f-size-11 mt-auto me-2 pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="selectedProduct = product">view more</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">{{selectedProduct.name}} Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-product-popup [product]="selectedProduct"></app-product-popup>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
